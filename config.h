@@ -29,6 +29,16 @@ static const unsigned int systrayspacing = 4;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 
+
+static const char *const autostart[] = {
+	"/home/benoitp/bin/st", NULL,
+	"nm-applet", NULL,
+	"feh", "--bg-scale", "/home/benoitp/Pictures/rabbit-ran-cow-at-the-ocean-printversion2.jpg", NULL,
+	"picom", "-b", NULL,
+	"/home/benoitp/.dwm/dwm_status.sh", NULL,
+	NULL /* terminate */
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -54,11 +64,11 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-static const char *upvol[]   = { "/home/benoitp/bin/manage.sh", "-su", "5",	NULL };
-static const char *downvol[]   = { "/home/benoitp/bin/manage.sh", "-sd", "5",     NULL };
-static const char *mutevol[]   = { "/home/benoitp/bin/manage.sh", "-sm",    NULL };
-static const char *inclight[]   = { "/home/benoitp/bin/manage.sh", "-lu", "5",	NULL };
-static const char *declight[]   = { "/home/benoitp/bin/manage.sh", "-ld", "5",	NULL };
+static const char *upvol[]   = { "/home/benoitp/bin/sound.sh", "up", NULL };
+static const char *downvol[]   = { "/home/benoitp/bin/sound.sh", "down", NULL };
+static const char *mutevol[]   = { "/home/benoitp/bin/sound.sh", "mute", NULL };
+static const char *inclight[]   = { "xbacklight", "-inc", "5",	NULL };
+static const char *declight[]   = { "xbacklight", "-dec", "5",	NULL };
 static const char *screenmanager[] = { "/home/benoitp/bin/screens.sh", NULL };
 
 static const char *screenshotarea[] = { "/home/benoitp/bin/screenshot.sh", "-a", NULL };
@@ -78,16 +88,17 @@ static const char *screenshotfull[] = { "/home/benoitp/bin/screenshot.sh", "-f",
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "/home/benoitp/bin/tabbed","-c","-r", "2", "/home/benoitp/bin/st", "-w","''", NULL };
+//static const char *termcmd[]  = { "/home/benoitp/bin/tabbed","-c","-r", "2", "/home/benoitp/bin/st", "-w","''", NULL };
+static const char *termcmd[]  = { "/home/benoitp/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier		key				function        argument */
 	{ MODKEY,               XK_d,				spawn,          {.v = dmenucmd } },
-	{ MODKEY,		        XK_Return,			spawn,          {.v = termcmd } },
+	{ MODKEY,		XK_Return,			spawn,          {.v = termcmd } },
 	{ MODKEY,               XK_b,				togglebar,      {0} },
 	{ MODKEY,               XK_Down,			focusstack,     {.i = +1 } },
 	{ MODKEY,               XK_Up,				focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,	    XK_Down,			movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,	XK_Down,			movestack,      {.i = +1 } },
   	{ MODKEY|ShiftMask,     XK_Up,				movestack,      {.i = -1 } },
 	{ MODKEY,               XK_i,				incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,     XK_i,				incnmaster,     {.i = -1 } },
@@ -97,7 +108,8 @@ static Key keys[] = {
 	{ MODKEY,               XK_Tab,				view,           {0} },
 	{ MODKEY|ShiftMask,     XK_q,				killclient,     {0} },
 	{ MODKEY,               XK_t,				setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,               XK_f,				setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,     XK_f,				setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,               XK_f,				togglefullscr,  {0} },
 	{ MODKEY,               XK_m,				setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,               XK_space,			setlayout,      {0} },
 	{ MODKEY|ShiftMask,     XK_space,			togglefloating, {0} },
