@@ -6,7 +6,7 @@
 
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -22,7 +22,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-static const int gappx = 7;
+static const int gappx = 10;
 /* systray */
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayspacing = 4;   /* systray spacing */
@@ -77,10 +77,10 @@ static const char *screenshotfull[] = { "/home/benoitp/bin/screenshot.sh", "-f",
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -99,7 +99,7 @@ static Key keys[] = {
 	{ MODKEY,               XK_Down,			focusstack,     {.i = +1 } },
 	{ MODKEY,               XK_Up,				focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,	XK_Down,			movestack,      {.i = +1 } },
-  	{ MODKEY|ShiftMask,     XK_Up,				movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,     XK_Up,				movestack,      {.i = -1 } },
 	{ MODKEY,               XK_i,				incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,     XK_i,				incnmaster,     {.i = -1 } },
 	{ MODKEY,               XK_Left,			setmfact,       {.f = -0.05} },
@@ -120,23 +120,24 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_comma,			tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,     XK_period,			tagmon,         {.i = +1 } },
 	{ 0,                    XF86XK_AudioLowerVolume, 	spawn,		{.v = downvol } },
-    { 0,                    XF86XK_AudioMute, 		spawn,		{.v = mutevol } },
-    { 0,                    XF86XK_AudioRaiseVolume, 	spawn,		{.v = upvol   } },
-    { 0,                    XF86XK_MonBrightnessDown,	spawn,		{.v = declight   } },
-    { 0,                    XF86XK_MonBrightnessUp, 	spawn,		{.v = inclight   } },
+	{ 0,                    XF86XK_AudioMute, 		spawn,		{.v = mutevol } },
+	{ 0,                    XF86XK_AudioRaiseVolume, 	spawn,		{.v = upvol   } },
+	{ 0,                    XF86XK_MonBrightnessDown,	spawn,		{.v = declight   } },
+	{ 0,                    XF86XK_MonBrightnessUp, 	spawn,		{.v = inclight   } },
 	{ 0, 			        XF86XK_Display,		 	spawn,		{.v= screenmanager }},
 	{ 0,			        PrintScreenDWM,		 	spawn,		{.v= screenshotfull }},
 	{ ShiftMask,			PrintScreenDWM,		 	spawn,		{.v= screenshotarea }},
 	TAGKEYS(                XK_1,                      0)
-	TAGKEYS(                XK_2,                      1)
-	TAGKEYS(                XK_3,                      2)
-	TAGKEYS(                XK_4,                      3)
-	TAGKEYS(                XK_5,                      4)
-	TAGKEYS(                XK_6,                      5)
-	TAGKEYS(                XK_7,                      6)
-	TAGKEYS(                XK_8,                      7)
-	TAGKEYS(		XK_9,                      8)
-	{ MODKEY|ShiftMask,	XK_c,				quit,           {0} },
+		TAGKEYS(                XK_2,                      1)
+		TAGKEYS(                XK_3,                      2)
+		TAGKEYS(                XK_4,                      3)
+		TAGKEYS(                XK_5,                      4)
+		TAGKEYS(                XK_6,                      5)
+		TAGKEYS(                XK_7,                      6)
+		TAGKEYS(                XK_8,                      7)
+		TAGKEYS(		XK_9,                      8)
+		{ MODKEY|ShiftMask,	XK_c,				quit,           {0} },
+		{ MODKEY|ControlMask|ShiftMask,	XK_c,				quit,           {1} },
 };
 
 /* button definitions */
