@@ -93,6 +93,8 @@ static const char *termcmd[]  = { "/home/benoitp/bin/st", NULL };
 
 static Key keys[] = {
 	/* modifier		key				function        argument */
+	{ MODKEY|ShiftMask,     XK_i,                           incnmaster,     {.i = -1 } },
+	{ MODKEY,     		XK_i,                           incnmaster,     {.i = 1 } },
 	{ MODKEY,               XK_d,				spawn,          {.v = dmenucmd } },
 	{ MODKEY,		XK_Return,			spawn,          {.v = termcmd } },
 	{ MODKEY,               XK_b,				togglebar,      {0} },
@@ -100,8 +102,6 @@ static Key keys[] = {
 	{ MODKEY,               XK_Up,				focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,	XK_Down,			movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,     XK_Up,				movestack,      {.i = -1 } },
-	{ MODKEY,               XK_i,				incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,     XK_i,				incnmaster,     {.i = -1 } },
 	{ MODKEY,               XK_Left,			setmfact,       {.f = -0.05} },
 	{ MODKEY,               XK_Right,			setmfact,       {.f = +0.05} },
 	{ MODKEY,               XK_Return,			zoom,           {0} },
@@ -124,20 +124,20 @@ static Key keys[] = {
 	{ 0,                    XF86XK_AudioRaiseVolume, 	spawn,		{.v = upvol   } },
 	{ 0,                    XF86XK_MonBrightnessDown,	spawn,		{.v = declight   } },
 	{ 0,                    XF86XK_MonBrightnessUp, 	spawn,		{.v = inclight   } },
-	{ 0, 			        XF86XK_Display,		 	spawn,		{.v= screenmanager }},
-	{ 0,			        PrintScreenDWM,		 	spawn,		{.v= screenshotfull }},
-	{ ShiftMask,			PrintScreenDWM,		 	spawn,		{.v= screenshotarea }},
-	TAGKEYS(                XK_1,                      0)
-		TAGKEYS(                XK_2,                      1)
-		TAGKEYS(                XK_3,                      2)
-		TAGKEYS(                XK_4,                      3)
-		TAGKEYS(                XK_5,                      4)
-		TAGKEYS(                XK_6,                      5)
-		TAGKEYS(                XK_7,                      6)
-		TAGKEYS(                XK_8,                      7)
-		TAGKEYS(		XK_9,                      8)
-		{ MODKEY|ShiftMask,	XK_c,				quit,           {0} },
-		{ MODKEY|ControlMask|ShiftMask,	XK_c,				quit,           {1} },
+	{ 0, 		        XF86XK_Display,		 	spawn,		{.v= screenmanager }},
+	{ 0,		        PrintScreenDWM,		 	spawn,		{.v= screenshotfull }},
+	{ ShiftMask,		PrintScreenDWM,		 	spawn,		{.v= screenshotarea }},
+	TAGKEYS(                XK_1,   		   0)
+	TAGKEYS(                XK_2,                      1)
+	TAGKEYS(                XK_3,                      2)
+	TAGKEYS(                XK_4,                      3)
+	TAGKEYS(                XK_5,                      4)
+	TAGKEYS(                XK_6,                      5)
+	TAGKEYS(                XK_7,                      6)
+	TAGKEYS(                XK_8,                      7)
+	TAGKEYS(		XK_9,                      8)
+	{ MODKEY|ShiftMask,	XK_c,				quit,           {0} },
+	{ MODKEY|ControlMask|ShiftMask,	XK_c,			quit,           {1} },
 };
 
 /* button definitions */
