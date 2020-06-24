@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
 #include "movestack.c"
+#include "fibonacci.c"
 
 #define PrintScreenDWM	    0x0000ff61
 
@@ -10,7 +11,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Hack:size=11" };
+static const char *fonts[]          = { "Hack Nerd Font:size=11:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Hack:size=11";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -22,7 +23,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
-static const int gappx = 10;
+static const int gappx = 15;
 /* systray */
 static const unsigned int systraypinning = 0;
 static const unsigned int systrayspacing = 4;   /* systray spacing */
@@ -31,11 +32,11 @@ static const int showsystray        = 1;     /* 0 means no systray */
 
 
 static const char *const autostart[] = {
-	"/home/benoitp/bin/st", NULL,
 	"nm-applet", NULL,
 	"feh", "--bg-scale", "/home/benoitp/Pictures/rabbit-ran-cow-at-the-ocean-printversion2.jpg", NULL,
 	"picom", "-b", NULL,
 	"/home/benoitp/.dwm/dwm_status.sh", NULL,
+	"xidlehook", "--not-when-fullscreen", "--not-when-audio", "--timer", "normal", "600", "'slock'", NULL,
 	NULL /* terminate */
 };
 
@@ -62,6 +63,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "[@]",      spiral },
+        { "[\\]",      dwindle },
 };
 
 static const char *upvol[]   = { "/home/benoitp/bin/sound.sh", "up", NULL };
@@ -69,10 +72,7 @@ static const char *downvol[]   = { "/home/benoitp/bin/sound.sh", "down", NULL };
 static const char *mutevol[]   = { "/home/benoitp/bin/sound.sh", "mute", NULL };
 static const char *inclight[]   = { "xbacklight", "-inc", "5",	NULL };
 static const char *declight[]   = { "xbacklight", "-dec", "5",	NULL };
-static const char *screenmanager[] = { "/home/benoitp/bin/screens.sh", NULL };
-
-static const char *screenshotarea[] = { "/home/benoitp/bin/screenshot.sh", "-a", NULL };
-static const char *screenshotfull[] = { "/home/benoitp/bin/screenshot.sh", "-f", NULL };
+static const char *screenshot[] = { "/home/benoitp/bin/screenshot", NULL };
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -110,7 +110,8 @@ static Key keys[] = {
 	{ MODKEY,               XK_t,				setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,     XK_f,				setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,               XK_f,				togglefullscr,  {0} },
-	{ MODKEY,               XK_m,				setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,               XK_m,				setlayout,      {.v = &layouts[3]} },
+	{ MODKEY, 		XK_r,				setlayout,	{.v = &layouts[4]} },
 	{ MODKEY,               XK_space,			setlayout,      {0} },
 	{ MODKEY|ShiftMask,     XK_space,			togglefloating, {0} },
 	{ MODKEY,               XK_0,				view,           {.ui = ~0 } },
@@ -124,9 +125,7 @@ static Key keys[] = {
 	{ 0,                    XF86XK_AudioRaiseVolume, 	spawn,		{.v = upvol   } },
 	{ 0,                    XF86XK_MonBrightnessDown,	spawn,		{.v = declight   } },
 	{ 0,                    XF86XK_MonBrightnessUp, 	spawn,		{.v = inclight   } },
-	{ 0, 		        XF86XK_Display,		 	spawn,		{.v= screenmanager }},
-	{ 0,		        PrintScreenDWM,		 	spawn,		{.v= screenshotfull }},
-	{ ShiftMask,		PrintScreenDWM,		 	spawn,		{.v= screenshotarea }},
+	{ 0,		        PrintScreenDWM,		 	spawn,		{.v= screenshot }},
 	TAGKEYS(                XK_1,   		   0)
 	TAGKEYS(                XK_2,                      1)
 	TAGKEYS(                XK_3,                      2)
