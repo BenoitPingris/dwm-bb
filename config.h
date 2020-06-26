@@ -1,7 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
 #include "movestack.c"
-#include "fibonacci.c"
 
 #define PrintScreenDWM	    0x0000ff61
 
@@ -63,8 +62,6 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[@]",      spiral },
-        { "[\\]",      dwindle },
 };
 
 static const char *upvol[]   = { "/home/benoitp/bin/sound.sh", "up", NULL };
